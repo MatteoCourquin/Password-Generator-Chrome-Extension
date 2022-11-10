@@ -1,30 +1,23 @@
 let generateButton = document.querySelector('#generate-button');
-let password = document.querySelector('#password');
-
-generateButton.addEventListener('click', () => {
-  randomPassword()
-})
-password.addEventListener('click', copyPassword)
-
+let passwordInsert = document.querySelector('#password-insert');
 let length = 4,
-    charset = "abcdefghijklmnopqrstuvwxyz+*#&@!$%?ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+*#&@!$%?",
-    retVal = "";
-
+  charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+*#&@!$%?",
+  password = "";
 
 function copyPassword() {
-  navigator.clipboard.writeText(password.textContent)
+  navigator.clipboard.writeText(passwordInsert.textContent);
 }
-
-  
-shuffleChars = () => {
+function shuffleChars() {
   let value = "";
   for (let i = 0, n = charset.length; i < length; ++i) {
     value += charset.charAt(Math.floor(Math.random() * n));
   }
   return value;
 }
-randomPassword = () => {
-  console.log(shuffleChars());
-  retVal = `${shuffleChars()}-${shuffleChars()}-${shuffleChars()}`;
-  password.innerHTML = retVal;
+function randomPassword() {
+  password = `${shuffleChars()}-${shuffleChars()}-${shuffleChars()}`;
+  passwordInsert.innerHTML = password;
 }
+
+generateButton.addEventListener('click', () => { randomPassword(), copyPassword() })
+passwordInsert.addEventListener('click', copyPassword)
